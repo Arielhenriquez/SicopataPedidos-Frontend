@@ -1,5 +1,23 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <CategoriesCrud></CategoriesCrud>
+
   </div>
 </template>
+
+<script>
+import CategoriesCrud from "@/components/CategoriesCrud.vue";
+
+export default {
+  components: {
+    CategoriesCrud
+  },
+}
+</script>
+
+<style>
+input[type=text] {
+  width: 50%;
+  margin: 2px;
+}
+</style>
