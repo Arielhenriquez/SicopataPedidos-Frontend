@@ -1,5 +1,6 @@
 <template>
     <form>
+        <h1>Login</h1>
         <div class="field">
             <p class="control has-icons-left has-icons-right">
                 <input class="input" type="email" placeholder="Email" v-model="loginData.email">

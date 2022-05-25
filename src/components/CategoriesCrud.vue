@@ -1,44 +1,50 @@
 <template>
-    <div>
-        <h2>Datos de las Categorias: </h2>
-    </div>
-    <div class="card" v-for="Categories in allCategories" :key="Categories">
-        <div class="card-content">
-            <div class="content">{{ "Id: " + Categories.id + " Nombre: " + Categories.name }}
-            </div>
-        </div>
-    </div>
-
     <div class="search">
         <input type="text" class="input is-normal" id="name" placeholder="Inserte el nombre de la categoria"
             v-model="categoryData.name">
         <input type="submit" class="button is-success" value="Agregar categoria" @click="createCategory">
     </div>
     <div>
-        <input type="text" class="input is-normal" id="id" placeholder="Ingresa el id de una categoria" v-model="id">
-        <input type="text" class="input is-normal" id="name" placeholder="Inserte el nombre de la categoria"
-            v-model="categoryData.name">
+        <h2>Datos de las Categorias: </h2>
     </div>
-    <input type="submit" class="button is-warning" value="Actualizar categoria" @click="updateCategory">
-    <div>
-        <input type="text" class="input is-normal" id="id" placeholder="Ingresa el id de una categoria" v-model="id">
-        <input type="submit" class="button is-danger" value="Borrar categoria" @click="deleteCategory">
+    <div class="card" v-for="Categories in allCategories" :key="Categories">
+
+        <div class="card-content">
+            <div class="content">{{ "Id: " + Categories.id + " Nombre: " + Categories.name }}
+                <div>
+                    <input type="submit" class="button is-danger" value="Borrar categoria"
+                        @click="deleteCategory(Categories.id)">
+                    <input type="submit" class="button is-warning" value="Actualizar categoria"
+                        @click="updateCategory(Categories.id, true)">
+                </div>
+                <div>
+                    <!--  <input type="text" class="input is-normal" id="id" placeholder="Ingresa el id de una categoria"
+                        v-model="id">
+                    <input type="text" class="input is-normal" id="name" placeholder="Inserte el nombre de la categoria"
+                        v-model="categoryData.name"> -->
+
+                </div>
+            </div>
+        </div>
     </div>
-
-
+    <CategoriesUpdate :categoryId="this.categoryData.id" :isActive="this.isActive" @closeModal="handleCloseModal" />
 </template>
 
 <script>
 import CrudService from "./service/CrudService";
-
+import CategoriesUpdate from "@/components/CategoriesUpdate"
 export default {
+    components: {
+        CategoriesUpdate
+    },
     data() {
         return {
             allCategories: [],
             categoryData: {},
             updated: "Se actualizo la categoria",
             deleted: "Se borro la categoria",
-
+            isActive: false,
+            id: 0,
         }
     },
     methods: {
@@ -67,18 +73,24 @@ export default {
                     console.log(error);
                 })
         },
-        updateCategory() {
-            CrudService.update(this.id, this.categoryData)
+        updateCategory(id, data) {
+            CrudService.updateCategory(id, this.categoryData)
                 .then((response) => {
-                    this.$swal(this.updated)
+                    // this.$swal(this.updated)
                     console.log(response)
                 })
                 .catch((error) => {
                     console.log(error);
                 });
+            this.isActive = data,
+                this.id = id;
         },
-        deleteCategory() {
-            CrudService.delete(this.id)
+        handleCloseModal(vale) {
+            this.updateCategory(false);
+            console.log(vale)
+        },
+        deleteCategory(id) {
+            CrudService.delete(id)
                 .then((response) => {
                     this.$swal({
                         icon: 'warning',

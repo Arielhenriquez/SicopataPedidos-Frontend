@@ -1,63 +1,32 @@
 <template>
-    <form>
-        <div>
-            <div class="field">
-                <label class="label" for="email">Email</label>
-                <div class="control has-icons-left has-icons-right">
-                    <input class="input is-primary" type="email" id="email" v-model="userData.email">
-                </div>
-            </div>
+    <div>
+        <input type="text" class="input is-normal" id="id" placeholder="Ingresa el id de un usuario" v-model="id">
+        <input type="text" class="input is-normal" id="name" placeholder="Inserte el nuevo email del un usuario"
+            v-model="userData.email">
+        <input type="password" class="input is-normal" id="name" placeholder="Inserte la nueva clave del usuario"
+            v-model="userData.password">
 
-            <div class="field">
-                <label class="label" for="password">Password</label>
-                <input class="input is-primary" type="password" id="password" v-model="userData.password">
-            </div>
+    </div>
+    <input type="submit" class="button is-warning" value="Actualizar usuario" @click="updateUser">
 
-            <div class="field">
-                <label class="label" for="wallet">Wallet</label>
-                <input class="input is-primary" type="number" id="wallet" v-model="userData.wallet">
-            </div>
+    <div>
+        <input type="text" class="input is-normal" placeholder="Ingresa el id de un usuario" v-model="id">
+        <input type="submit" class="button is-danger" value="Borrar usuario" @click="deleteUser">
+    </div>
 
-            <div class="select is-primary">
-                <select v-model="userData.isAdmin">
-                    <option>Admin</option>
-                    <option>Client</option>
-                </select>
-            </div>
-
-            <input type="submit" class="button is-success" value="Agregar usuario" @click="insertUsers">
-
-
-        </div>
-
-
-        <div>
-            <input type="text" class="input is-normal" id="id" placeholder="Ingresa el id de un usuario" v-model="id">
-            <input type="text" class="input is-normal" id="name" placeholder="Inserte el email de un usuario"
-                v-model="userData.email">
-            <input type="submit" class="button is-warning" value="Actualizar usuario" @click="updateUser">
-        </div>
-
-        <div>
-            <input type="text" class="input is-normal" placeholder="Ingresa el id de un usuario" v-model="id">
-            <input type="submit" class="button is-danger" value="Borrar usuario" @click="deleteUser">
-        </div>
-        <div class="all-categories" v-for="Users in allUsers" :key="Users">
-            <div class="all-content">{{ "Email: " + Users.email }}
-                <div>
-                    {{ "Password: " + Users.password }}
-                </div>
-
+    <h2>Usuarios Registrados</h2>
+    <div class="card" v-for="Users in allUsers" :key="Users">
+        <div class="card-content"> {{ "Id: " + Users.id }}
+            <div class="content">
+                {{ "Email: " + Users.email }}
+                {{ "Password: " + Users.password }}
             </div>
         </div>
-        <button v-on:click="getAllUsers" class="button is-link">Lista de Usuarios</button>
-        <h2>Usuarios Registrados</h2>
-    </form>
 
+    </div>
 </template>
 
 <script>
-
 import CrudUsers from './service/CrudUsers'
 export default {
     data() {
@@ -74,20 +43,6 @@ export default {
                     console.log(response.data)
                 })
                 .catch((error) => {
-                    console.log(error)
-                })
-        },
-        insertUsers() {
-            CrudUsers.insertUser(this.userData)
-                .then((response) => {
-                    this.userData = response.data.email
-                    console.log(response)
-                    this.$swal({
-                        icon: 'success',
-                        title: 'Exito',
-                        text: 'Se agrego un usuario',
-                    });
-                }).catch((error) => {
                     console.log(error)
                 })
         },
@@ -116,13 +71,19 @@ export default {
                 });
         },
     },
+    mounted() {
+        this.getAllUsers()
+    },
 }
 
 </script>
 
 <style>
-input[type=number] {
+.content {
+    background-color: rgb(21, 107, 213);
+    color: #fff;
     width: 50%;
-    margin: 2px;
+    margin: auto;
+    border-radius: 10px;
 }
 </style>

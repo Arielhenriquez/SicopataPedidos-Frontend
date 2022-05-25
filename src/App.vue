@@ -2,9 +2,10 @@
   <h1 class="header">Sicopata Pedidos</h1>
   <div class="navbar-start">
     <nav class="navbar">
+      <router-link class="navbar-item" to="/admin">Admin</router-link>
       <router-link class="navbar-item" to="/register">Register</router-link>
       <router-link class="navbar-item" to="/">Login</router-link>
-      <router-link class="navbar-item" to="/crud">Categories</router-link>
+      <router-link class="navbar-item" to="/categories">Categories</router-link>
       <router-link class="navbar-item" to="/products">Products</router-link>
     </nav>
   </div>
