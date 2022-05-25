@@ -1,6 +1,6 @@
 <template>
     <div class="search">
-        <input type="text" class="input is-normal" id="name" placeholder="Inserte el nombre de la categoria"
+        <input type="text" class="input is-success" id="name" placeholder="Inserte el nombre de la categoria"
             v-model="categoryData.name">
         <input type="submit" class="button is-success" value="Agregar categoria" @click="createCategory">
     </div>
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <CategoriesUpdate :categoryId="this.categoryData.id" :isActive="this.isActive" @closeModal="handleCloseModal" />
+        <CategoriesUpdate :categoryId="categoryData.id" :isActive="this.isActive" @closeModal="handleCloseModal" @updateModal="handleUpdate" />
 </template>
 
 <script>
@@ -74,20 +74,24 @@ export default {
                 })
         },
         updateCategory(id, data) {
-            CrudService.updateCategory(id, this.categoryData)
-                .then((response) => {
-                    // this.$swal(this.updated)
-                    console.log(response)
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+           // console.log(id)
+            // CrudService.updateCategory(id, this.categoryData)
+            //     .then((response) => {
+            //         // this.$swal(this.updated)
+            //         console.log(response)
+            //     })
+            //     .catch((error) => {
+            //         console.log(error);
+            //     });
             this.isActive = data,
-                this.id = id;
+            this.id = id;
         },
         handleCloseModal(vale) {
             this.updateCategory(false);
-            console.log(vale)
+        },
+        handleUpdate(value){
+            value.id = this.id;
+            console.log(value)
         },
         deleteCategory(id) {
             CrudService.delete(id)

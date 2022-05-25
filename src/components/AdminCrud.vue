@@ -1,29 +1,35 @@
 <template>
+    <h2>Usuarios Registrados</h2>
+    <table class="table is-fullwidth has-text-centered mt-5">
+        <thead>
+            <tr>
+                <th class="has-text-centered">ID</th>
+                <th class="has-text-centered">Email</th>
+                <th class="has-text-centered">Password</th>
+                <th class="has-text-centered">Delete</th>
+            </tr>
+        </thead>
+
+        <tbody v-for="Users in allUsers" ::key="Users">
+            <tr>
+                <td>{{ Users.id }}</td>
+                <td>{{ Users.email }}</td>
+                <td>{{ Users.password }}</td>
+                <td> <input type="submit" class="button is-danger" value="Borrar usuario" @click="deleteUser(Users.id)">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
     <div>
-        <input type="text" class="input is-normal" id="id" placeholder="Ingresa el id de un usuario" v-model="id">
-        <input type="text" class="input is-normal" id="name" placeholder="Inserte el nuevo email del un usuario"
+        <input type="text" class="input is-warning" id="id" placeholder="Ingresa el id de un usuario" v-model="id">
+        <input type="text" class="input is-warning" id="name" placeholder="Inserte el nuevo email del un usuario"
             v-model="userData.email">
-        <input type="password" class="input is-normal" id="name" placeholder="Inserte la nueva clave del usuario"
+        <input type="password" class="input is-warning" placeholder="Inserte la nueva clave del usuario"
             v-model="userData.password">
 
     </div>
     <input type="submit" class="button is-warning" value="Actualizar usuario" @click="updateUser">
-
-    <div>
-        <input type="text" class="input is-normal" placeholder="Ingresa el id de un usuario" v-model="id">
-        <input type="submit" class="button is-danger" value="Borrar usuario" @click="deleteUser">
-    </div>
-
-    <h2>Usuarios Registrados</h2>
-    <div class="card" v-for="Users in allUsers" :key="Users">
-        <div class="card-content"> {{ "Id: " + Users.id }}
-            <div class="content">
-                {{ "Email: " + Users.email }}
-                {{ "Password: " + Users.password }}
-            </div>
-        </div>
-
-    </div>
 </template>
 
 <script>
@@ -56,8 +62,8 @@ export default {
                     console.log(error);
                 });
         },
-        deleteUser() {
-            CrudUsers.deleteUser(this.id)
+        deleteUser(id) {
+            CrudUsers.deleteUser(id)
                 .then((response) => {
                     this.$swal({
                         icon: 'warning',

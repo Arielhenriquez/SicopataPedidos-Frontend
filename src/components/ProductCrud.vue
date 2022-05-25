@@ -16,7 +16,7 @@
     </div>
     <div>
         <input type="text" class="input is-normal" id="id" placeholder="Ingresa el id del producto" v-model="id">
-        <input type="text" class="input is-normal" id="name" placeholder="Inserte el nombre del producto"
+        <input type="text" class="input is-normal" placeholder="Inserte el nombre del producto"
             v-model="productsData.name">
     </div>
     <input type="submit" class="button is-warning" value="Actualizar producto" @click="updateCategory">

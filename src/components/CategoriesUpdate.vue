@@ -3,7 +3,7 @@ import { updateCategory } from './service/CrudService';
 import { ref } from 'vue';
 import router from '@/router';
 
-const categoryData = ref('');
+const categoryData = ref({ name: "" });
 
 const props = defineProps({
     isActive: Boolean,
@@ -11,8 +11,9 @@ const props = defineProps({
     onCloseModal: Function
 });
 
+
 function update() {
-    updateCategory(props.categoryId, { name: categoryData.value });
+    updateCategory(props.categoryId, { name: categoryData.name });
     router.go('/admin/categories');
 }
 
@@ -30,7 +31,7 @@ function update() {
                             <input type="text" class="input is-normal" id="name"
                                 placeholder="Inserte el nombre de la categoria" v-model="categoryData.name">
                             <button class="button is-dark mt-3"
-                                @click="update(); $emit('closeModal', { datos: 'blablabla' })">Update</button>
+                                @click="$emit('updateModal', { data: categoryData.name, id: categoryId })">Update</button>
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,7 @@
         <h1>Login</h1>
         <div class="field">
             <p class="control has-icons-left has-icons-right">
-                <input class="input" type="email" placeholder="Email" v-model="loginData.email">
+                <input class="input is-link" type="email" placeholder="Email" v-model="loginData.email">
                 <span class="icon is-small is-left">
                 </span>
                 <span class="icon is-small is-right">
@@ -12,7 +12,7 @@
         </div>
         <div class="field">
             <p class="control has-icons-left">
-                <input class="input" type="password" placeholder="Password" v-model="loginData.password">
+                <input class="input is-link" type="password" placeholder="Password" v-model="loginData.password">
                 <span class="icon is-small is-left">
                 </span>
             </p>
