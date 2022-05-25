@@ -1,9 +1,12 @@
 <script setup>
-import { updateCategory } from './service/CrudService';
+import CrudService from './service/CrudService';
 import { ref } from 'vue';
 import router from '@/router';
+import { inject } from 'vue'
 
-const categoryData = ref({ name: "" });
+
+const categoryData = ref("");
+const swal = inject('$swal')
 
 const props = defineProps({
     isActive: Boolean,
@@ -12,9 +15,17 @@ const props = defineProps({
 });
 
 
-function update() {
-    updateCategory(props.categoryId, { name: categoryData.name });
-    router.go('/admin/categories');
+function update(categoryId, categoryData) {
+    router.push('/categories');
+    CrudService.updateCategory(categoryId, { name: categoryData })
+        .then((response) => {
+            swal('Categoria actualizada')
+            console.log(response)
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
 }
 
 </script>
@@ -28,17 +39,16 @@ function update() {
                     <div class="field">
                         <label for="name" class="label" type="text">Category Name:</label>
                         <div class="control">
-                            <input type="text" class="input is-normal" id="name"
-                                placeholder="Inserte el nombre de la categoria" v-model="categoryData.name">
-                            <button class="button is-dark mt-3"
-                                @click="$emit('updateModal', { data: categoryData.name, id: categoryId })">Update</button>
+                            <input type="text" class="input is-normal" placeholder="Inserte el nombre de la categoria"
+                                v-model="categoryData">
+                            <button class="button is-warning"
+                                @click="update(props.categoryId, categoryData); $emit('updateModal', { id: props.categoryId, data: categoryData })">Update</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <button class="modal-close is-large" aria-label="close"
-            @click="$emit('closeModal', { datos: 'blablabla' })"></button>
+        <button class="modal-close is-large" aria-label="close" @click="$emit('closeModal')"></button>
     </div>
 </template>
 

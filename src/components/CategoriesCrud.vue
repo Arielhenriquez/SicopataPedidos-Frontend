@@ -17,17 +17,11 @@
                     <input type="submit" class="button is-warning" value="Actualizar categoria"
                         @click="updateCategory(Categories.id, true)">
                 </div>
-                <div>
-                    <!--  <input type="text" class="input is-normal" id="id" placeholder="Ingresa el id de una categoria"
-                        v-model="id">
-                    <input type="text" class="input is-normal" id="name" placeholder="Inserte el nombre de la categoria"
-                        v-model="categoryData.name"> -->
-
-                </div>
             </div>
         </div>
     </div>
-        <CategoriesUpdate :categoryId="categoryData.id" :isActive="this.isActive" @closeModal="handleCloseModal" @updateModal="handleUpdate" />
+    <CategoriesUpdate :categoryId="this.id" :isActive="this.isActive" @closeModal="handleCloseModal"
+        @updateModal="handleUpdate" />
 </template>
 
 <script>
@@ -74,22 +68,14 @@ export default {
                 })
         },
         updateCategory(id, data) {
-           // console.log(id)
-            // CrudService.updateCategory(id, this.categoryData)
-            //     .then((response) => {
-            //         // this.$swal(this.updated)
-            //         console.log(response)
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
-            this.isActive = data,
-            this.id = id;
+            this.id = id,
+                this.isActive = data;
+
         },
         handleCloseModal(vale) {
             this.updateCategory(false);
         },
-        handleUpdate(value){
+        handleUpdate(value) {
             value.id = this.id;
             console.log(value)
         },

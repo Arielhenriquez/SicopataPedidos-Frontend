@@ -57,7 +57,7 @@ export default {
                         title: 'Exito',
                         text: 'Bienvenido',
                     });
-                    router.push({ path: "/crud" })
+                    router.push({ path: "/products" })
                     console.log(response);
                 })
                 .catch((error) => {

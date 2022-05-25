@@ -6,6 +6,7 @@
                 <th class="has-text-centered">ID</th>
                 <th class="has-text-centered">Email</th>
                 <th class="has-text-centered">Password</th>
+                <th class="has-text-centered">Rol</th>
                 <th class="has-text-centered">Delete</th>
             </tr>
         </thead>
@@ -15,6 +16,7 @@
                 <td>{{ Users.id }}</td>
                 <td>{{ Users.email }}</td>
                 <td>{{ Users.password }}</td>
+                <td>{{ Users.isAdmin }}</td>
                 <td> <input type="submit" class="button is-danger" value="Borrar usuario" @click="deleteUser(Users.id)">
                 </td>
             </tr>
